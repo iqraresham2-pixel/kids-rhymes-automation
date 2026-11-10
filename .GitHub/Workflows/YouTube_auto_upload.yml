@@ -1,0 +1,41 @@
+
+name: YouTube Upload Demo
+
+on:
+  workflow_dispatch:
+    inputs:
+      privacy:
+        description: "Video visibility"
+        required: true
+        type: choice
+        options:
+          - unlisted
+          - public
+        default: unlisted
+
+permissions:
+  contents: read
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Upload video
+        env:
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+          VIDEO_PRIVACY: ${{ inputs.privacy }}
+        run: python main.py
