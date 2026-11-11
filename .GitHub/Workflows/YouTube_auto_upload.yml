@@ -35,6 +35,7 @@ jobs:
       - name: Upload video
         env:
           YOUTUBE_CLIENT_ID:${{secrets.KIDS_RHYMES_ANIMATION}}
-          YOUTUBE_CLIENT_SECRET: ${{ secrets.KIDS_RHYMES_ANIMATED}}          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.KIDS_RHYMES_ANIMATED}}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.KIDS_RHYMES_ANIMATED}}
           VIDEO_PRIVACY: ${{ inputs.privacy }}
         run: python main.py
